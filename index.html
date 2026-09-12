@@ -1,139 +1,31 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Prepacking Form</title>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('https://img.freepik.com/free-photo/medication-dark-environment_23-2151438511.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        h1 {
-            font-family: 'Times New Roman', serif;
-            color: #fff;
-            font-size: 36px;
-            margin-top: 20px;
-            text-align: center;
-            animation: neonGlow 1.5s ease-in-out infinite alternate;
-        }
-        
-        @keyframes neonGlow {
-            from {
-                text-shadow: 0 0 10px #ffff66, 0 0 20px #ffff66, 0 0 30px #ffff66;
-            }
-            to {
-                text-shadow: 0 0 20px #ffff66, 0 0 30px #ffff66, 0 0 40px #ffff66;
-            }
-        }
-
-        form {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        
-        button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        /* Style for the "LIVE DATA" button */
-        .blue-button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .blue-button:hover {
-            background-color: #0056b3;
-        }
-
-    </style>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>e‑BINCARDS · Prepacking form</title>
+  <meta name="description" content="Submit a prepacking request and view live packing data.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f6df6'/%3E%3Cpath d='M8 10h16v12H8zM11 7h10v3H11zM12 15h8' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<h1 style="text-align: center; color: #fff; font-size: 36px;">e-BINCARDS</h1>
-    <form action="https://docs.google.com/forms/d/e/1FAIpQLSdyL2evG-UNXMAQ7RaipHhiEYpKKler5ojYd9bVA8HkKRbj1g/formResponse">
-
-	<select name="entry.2051236823" id="entry.2051236823" class="form-control" required>
-		<option value="" disabled selected>Drug name</option>
-		<option value="Amoxycillin 250mg">Amoxycillin 250mg</option>
-		<option value="Bromhexine 8mg">Bromhexine 8mg</option>
-		<option value="Chlorpheniramine Maleate 4mg">Chlorpheniramine Maleate 4mg</option>
-		<option value="Diclofenac Sodium 50mg">Diclofenac Sodium 50mg</option>
-		<option value="Ibuprofen 200mg">Ibuprofen 200mg</option>
-		<option value="Loratadine 10mg">Loratadine 10mg</option>
-		<option value="Magnesium Trisilicate 250mg">Magnesium Trisilicate 250mg</option>
-		<option value="Obimin">Obimin</option>
-		<option value="Paracetamol 500mg">Paracetamol 500mg</option>
-		<option value="Zincofer">Zincofer</option>
-		<option value="ORS">ORS</option>
-		<option value="UTIX">UTIX</option>
-	</select>
-</div>
-	<select name="entry.404581136" id="entry.404581136" class="form-control" required>
-		<option value="" disabled selected>Location</option>
-		<option value="Pharmacy Counter">Pharmacy Counter</option>
-		<option value="KKOM/KKIA/MCH">KKOM/KKIA/MCH</option>
-		<option value="other">Other</option>
-	</select>
-</div>
-	<select name="entry.1581721456" id="entry.1581721456" class="form-control" required>
-		<option value="" disabled selected>Total packs</option>
-		<option value="-50">-50</option>
-		<option value="-70">-70</option>
-		<option value="-100">-100</option>
-		<option value="-140">-140</option>
-		<option value="-150">-150</option>
-		<option value="-200">-200</option>
-		<option value="-250">-250</option>
-		<option value="-300">-300</option>
-	</select>
-</div>
-<label for="entry.2043754696">Name:</label>
-<input type="text" name="entry.2043754696" placeholder="Your name here" required><br>
-</div>
-        <button type="submit">Submit Data</button>
-    </form>
-
-</div>
-    <button class="blue-button" onclick="window.location.href='https://docs.google.com/spreadsheets/d/1EuLub6COia83czugL0-EdS-m1idImQTkZSn4uAl9vA0/edit#gid=2009708786'">LIVE DATA</button>
-    </form>
-</body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <main class="page-shell">
+    <header class="topbar"><a class="brand" href="./"><span class="brand-mark">e</span><span>e‑BINCARDS</span></a><span class="secure"><i></i> Pharmacy workflow</span></header>
+    <section class="layout">
+      <div class="intro"><p class="kicker">PREPACKING REQUEST</p><h1>Pack it right.<br><em>Every time.</em></h1><p class="lede">Send a clear request to the packing team. Choose the medicine, where it goes, and how many packs are needed.</p><div class="intro-rule"></div><p class="small-note">Your submission is sent to the shared prepacking record. Use the live data link to check the latest entries.</p></div>
+      <section class="form-card" aria-labelledby="form-title"><div class="card-heading"><div><p class="card-kicker">NEW REQUEST</p><h2 id="form-title">Prepacking details</h2></div><span class="step">01 / 01</span></div>
+        <form id="prepackForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdyL2evG-UNXMAQ7RaipHhiEYpKKler5ojYd9bVA8HkKRbj1g/formResponse" method="post" target="submitFrame" novalidate>
+          <div class="field"><label for="drug">Drug name <span>Required</span></label><select name="entry.2051236823" id="drug" required><option value="">Choose a medicine</option><option>Amoxycillin 250mg</option><option>Bromhexine 8mg</option><option>Chlorpheniramine Maleate 4mg</option><option>Diclofenac Sodium 50mg</option><option>Ibuprofen 200mg</option><option>Loratadine 10mg</option><option>Magnesium Trisilicate 250mg</option><option>Obimin</option><option>Paracetamol 500mg</option><option>Zincofer</option><option>ORS</option><option>UTIX</option></select></div>
+          <div class="field"><label for="location">Location <span>Required</span></label><select name="entry.404581136" id="location" required><option value="">Choose a location</option><option>Pharmacy Counter</option><option>KKOM/KKIA/MCH</option><option>Other</option></select></div>
+          <div class="field"><label for="packs">Total packs <span>Required</span></label><select name="entry.1581721456" id="packs" required><option value="">Choose total packs</option><option value="-50">50 packs</option><option value="-70">70 packs</option><option value="-100">100 packs</option><option value="-140">140 packs</option><option value="-150">150 packs</option><option value="-200">200 packs</option><option value="-250">250 packs</option><option value="-300">300 packs</option></select></div>
+          <div class="field"><label for="name">Your name <span>Required</span></label><input id="name" name="entry.2043754696" type="text" autocomplete="name" placeholder="Enter your name" required></div>
+          <p class="form-error" id="formError" role="alert"></p><button class="submit" type="submit"><span>Submit request</span><b>↗</b></button><p class="form-footnote">By submitting, this request is added to the shared prepacking record.</p>
+        </form>
+        <iframe name="submitFrame" id="submitFrame" title="Submission response" hidden></iframe><div class="success" id="success" role="status" hidden><span>✓</span><div><strong>Request submitted</strong><p>Your prepacking request was sent successfully.</p></div><button id="newRequest" type="button">New request</button></div>
+      </section>
+    </section>
+    <section class="data-panel"><div><p class="card-kicker">SHARED RECORD</p><h2>Live packing data</h2><p>Open the latest entries in the shared spreadsheet.</p></div><a class="live" href="https://docs.google.com/spreadsheets/d/1EuLub6COia83czugL0-EdS-m1idImQTkZSn4uAl9vA0/edit#gid=2009708786" target="_blank" rel="noopener noreferrer"><span>Open live data</span><b>↗</b></a></section>
+    <footer><span>e‑BINCARDS · Internal use</span><span>Person in charge: PPF Anisah</span><span>Need help? Check the shared record before submitting again.</span></footer>
+  </main><script src="app.js"></script>
 </body>
 </html>
-
-
-
