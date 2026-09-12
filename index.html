@@ -1,31 +1,454 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>e‑BINCARDS · Prepacking form</title>
-  <meta name="description" content="Submit a prepacking request and view live packing data.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f6df6'/%3E%3Cpath d='M8 10h16v12H8zM11 7h10v3H11zM12 15h8' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>e‑BINCARDS | Online Prepacking</title>
+
+  <style>
+    :root {
+      --navy: #12304a;
+      --blue: #1e6fa8;
+      --light-blue: #eaf5fb;
+      --green: #238b68;
+      --text: #243746;
+      --muted: #6d7d88;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(rgba(11, 38, 57, 0.78), rgba(11, 38, 57, 0.86)),
+        url("https://img.freepik.com/free-photo/medication-dark-environment_23-2151438511.jpg")
+        center / cover fixed no-repeat;
+      padding: 24px 16px;
+    }
+
+    .page {
+      width: min(100%, 620px);
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.3);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: white;
+      padding: 30px 28px 24px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.16);
+      font-size: 25px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 6vw, 40px);
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      margin: 7px 0 0;
+      color: #d9edf8;
+      font-size: 15px;
+    }
+
+    .person-in-charge {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 9px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    main {
+      padding: 26px;
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      color: var(--navy);
+      font-size: 20px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    select,
+    input {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid #c9d7df;
+      border-radius: 10px;
+      padding: 11px 13px;
+      background: white;
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(30, 111, 168, 0.14);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    button,
+    .live-link {
+      min-height: 48px;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.2s, filter 0.2s;
+    }
+
+    button:hover,
+    .live-link:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .submit-button {
+      background: var(--blue);
+      color: white;
+    }
+
+    .live-link {
+      display: grid;
+      place-items: center;
+      background: var(--green);
+      color: white;
+    }
+
+    .quote-box {
+      margin-top: 24px;
+      padding: 18px;
+      border-left: 4px solid var(--blue);
+      border-radius: 12px;
+      background: var(--light-blue);
+    }
+
+    .quote-label {
+      margin-bottom: 8px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    #dailyQuote {
+      margin: 0;
+      color: var(--navy);
+      font-size: 16px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 20px 26px 24px;
+      border-top: 1px solid #e6edf1;
+      background: #fbfdfe;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    footer strong {
+      color: var(--navy);
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 0;
+      }
+
+      .card {
+        min-height: 100vh;
+        border-radius: 0;
+      }
+
+      header,
+      main,
+      footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .button-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <div class="backdrop" aria-hidden="true"></div>
-  <main class="page-shell">
-    <header class="topbar"><a class="brand" href="./"><span class="brand-mark">e</span><span>e‑BINCARDS</span></a><span class="secure"><i></i> Pharmacy workflow</span></header>
-    <section class="layout">
-      <div class="intro"><p class="kicker">PREPACKING REQUEST</p><h1>Pack it right.<br><em>Every time.</em></h1><p class="lede">Send a clear request to the packing team. Choose the medicine, where it goes, and how many packs are needed.</p><div class="intro-rule"></div><p class="small-note">Your submission is sent to the shared prepacking record. Use the live data link to check the latest entries.</p></div>
-      <section class="form-card" aria-labelledby="form-title"><div class="card-heading"><div><p class="card-kicker">NEW REQUEST</p><h2 id="form-title">Prepacking details</h2></div><span class="step">01 / 01</span></div>
-        <form id="prepackForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdyL2evG-UNXMAQ7RaipHhiEYpKKler5ojYd9bVA8HkKRbj1g/formResponse" method="post" target="submitFrame" novalidate>
-          <div class="field"><label for="drug">Drug name <span>Required</span></label><select name="entry.2051236823" id="drug" required><option value="">Choose a medicine</option><option>Amoxycillin 250mg</option><option>Bromhexine 8mg</option><option>Chlorpheniramine Maleate 4mg</option><option>Diclofenac Sodium 50mg</option><option>Ibuprofen 200mg</option><option>Loratadine 10mg</option><option>Magnesium Trisilicate 250mg</option><option>Obimin</option><option>Paracetamol 500mg</option><option>Zincofer</option><option>ORS</option><option>UTIX</option></select></div>
-          <div class="field"><label for="location">Location <span>Required</span></label><select name="entry.404581136" id="location" required><option value="">Choose a location</option><option>Pharmacy Counter</option><option>KKOM/KKIA/MCH</option><option>Other</option></select></div>
-          <div class="field"><label for="packs">Total packs <span>Required</span></label><select name="entry.1581721456" id="packs" required><option value="">Choose total packs</option><option value="-50">50 packs</option><option value="-70">70 packs</option><option value="-100">100 packs</option><option value="-140">140 packs</option><option value="-150">150 packs</option><option value="-200">200 packs</option><option value="-250">250 packs</option><option value="-300">300 packs</option></select></div>
-          <div class="field"><label for="name">Your name <span>Required</span></label><input id="name" name="entry.2043754696" type="text" autocomplete="name" placeholder="Enter your name" required></div>
-          <p class="form-error" id="formError" role="alert"></p><button class="submit" type="submit"><span>Submit request</span><b>↗</b></button><p class="form-footnote">By submitting, this request is added to the shared prepacking record.</p>
+  <div class="page">
+    <div class="card">
+      <header>
+        <div class="brand-row">
+          <div class="brand-icon">⚕</div>
+          <div>
+            <h1>e‑BINCARDS</h1>
+            <p class="subtitle">Online prepacking record</p>
+          </div>
+        </div>
+
+        <div class="person-in-charge">
+          Person in charge: PPF Anisah
+        </div>
+      </header>
+
+      <main>
+        <h2 class="section-title">Submit prepacking details</h2>
+
+        <form
+          action="https://docs.google.com/forms/d/e/1FAIpQLSdyL2evG-UNXMAQ7RaipHhiEYpKKler5ojYd9bVA8HkKRbj1g/formResponse"
+          method="POST"
+          target="_blank"
+        >
+          <div class="field">
+            <label for="drug">Drug name</label>
+            <select name="entry.2051236823" id="drug" required>
+              <option value="" disabled selected>Select a drug</option>
+              <option>Amoxycillin 250mg</option>
+              <option>Bromhexine 8mg</option>
+              <option>Chlorpheniramine Maleate 4mg</option>
+              <option>Diclofenac Sodium 50mg</option>
+              <option>Ibuprofen 200mg</option>
+              <option>Loratadine 10mg</option>
+              <option>Magnesium Trisilicate 250mg</option>
+              <option>Obimin</option>
+              <option>Paracetamol 500mg</option>
+              <option>Zincofer</option>
+              <option>ORS</option>
+              <option>UTIX</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="location">Location</label>
+            <select name="entry.404581136" id="location" required>
+              <option value="" disabled selected>Select a location</option>
+              <option>Pharmacy Counter</option>
+              <option>KKOM/KKIA/MCH</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="packs">Total packs</label>
+            <select name="entry.1581721456" id="packs" required>
+              <option value="" disabled selected>Select total packs</option>
+              <option>-50</option>
+              <option>-70</option>
+              <option>-100</option>
+              <option>-140</option>
+              <option>-150</option>
+              <option>-200</option>
+              <option>-250</option>
+              <option>-300</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              name="entry.2043754696"
+              id="name"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
+          <div class="button-row">
+            <button class="submit-button" type="submit">
+              Submit data
+            </button>
+
+            <a
+              class="live-link"
+              href="https://docs.google.com/spreadsheets/d/1EuLub6COia83czugL0-EdS-m1idImQTkZSn4uAl9vA0/edit#gid=2009708786"
+              target="_blank"
+              rel="noopener"
+            >
+              View live data
+            </a>
+          </div>
         </form>
-        <iframe name="submitFrame" id="submitFrame" title="Submission response" hidden></iframe><div class="success" id="success" role="status" hidden><span>✓</span><div><strong>Request submitted</strong><p>Your prepacking request was sent successfully.</p></div><button id="newRequest" type="button">New request</button></div>
-      </section>
-    </section>
-    <section class="data-panel"><div><p class="card-kicker">SHARED RECORD</p><h2>Live packing data</h2><p>Open the latest entries in the shared spreadsheet.</p></div><a class="live" href="https://docs.google.com/spreadsheets/d/1EuLub6COia83czugL0-EdS-m1idImQTkZSn4uAl9vA0/edit#gid=2009708786" target="_blank" rel="noopener noreferrer"><span>Open live data</span><b>↗</b></a></section>
-    <footer><span>e‑BINCARDS · Internal use</span><span>Person in charge: PPF Anisah</span><span>Need help? Check the shared record before submitting again.</span></footer>
-  </main><script src="app.js"></script>
+
+        <section class="quote-box" aria-live="polite">
+          <div class="quote-label">Pharmacy note</div>
+          <p id="dailyQuote"></p>
+        </section>
+      </main>
+
+      <footer>
+        <strong>e‑BINCARDS</strong> · Supporting accurate stock records,
+        careful handling, and smoother pharmacy work.<br />
+        Person in charge: <strong>PPF Anisah</strong>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "Good records make good pharmacy work.",
+      "Every pack counted is one less worry later.",
+      "Careful checking keeps the pharmacy moving.",
+      "Small details protect patient care.",
+      "A tidy shelf starts with a tidy record.",
+      "Count calmly, record clearly.",
+      "Accuracy today saves time tomorrow.",
+      "Good teamwork keeps medicines ready.",
+      "A clear label makes a busy day easier.",
+      "Every entry has a purpose.",
+      "Stock control is patient care in action.",
+      "One careful check can prevent many problems.",
+      "Keep it simple, keep it accurate.",
+      "A little organisation goes a long way.",
+      "Good pharmacy habits build trust.",
+      "Neat records create smoother shifts.",
+      "Check twice, work once.",
+      "The best systems support the people using them.",
+      "Consistency makes pharmacy work easier.",
+      "Every medicine deserves careful handling.",
+      "Good preparation makes a difference.",
+      "Clear records help everyone help patients.",
+      "Accuracy is a quiet form of care.",
+      "A prepared pharmacy is a confident pharmacy.",
+      "Take a moment to check the details.",
+      "Good work starts with good information.",
+      "The small things matter in healthcare.",
+      "A well-recorded pack is a well-supported pack.",
+      "Keep the shelves ready and the records current.",
+      "Teamwork turns busy tasks into manageable tasks.",
+      "Good habits make busy days lighter.",
+      "Careful work is valuable work.",
+      "Simple records, stronger routines.",
+      "Every correct entry supports the next person.",
+      "Organised stock means smoother service.",
+      "One step at a time, one pack at a time.",
+      "Your careful work supports someone else's care.",
+      "A calm check is always worth the time.",
+      "Good communication keeps stock moving.",
+      "Reliable records create reliable service.",
+      "A clean process helps everyone.",
+      "Be accurate, be helpful, be kind.",
+      "Pharmacy care begins behind the counter too.",
+      "Preparation is part of professionalism.",
+      "Good stock habits protect good service.",
+      "Clear information makes better decisions.",
+      "A helpful record is a gift to the next shift.",
+      "Keep learning, keep checking.",
+      "Careful counting is a team effort.",
+      "A smooth shift starts with preparation.",
+      "Good order brings calm to busy work.",
+      "Every shelf tells a story about teamwork.",
+      "Accuracy is everyone's responsibility.",
+      "A quick check can make a big difference.",
+      "Good records help good medicines reach people.",
+      "Respect the process and it will support you.",
+      "The safest routine is a consistent routine.",
+      "Small improvements add up.",
+      "Good pharmacy work is built on trust.",
+      "Stay organised and stay ready.",
+      "A clear process leaves room for better care.",
+      "Every pack has a place.",
+      "Good records reduce unnecessary searching.",
+      "A thoughtful check shows professionalism.",
+      "Strong routines make good care repeatable.",
+      "Make the next shift easier.",
+      "Simple, accurate, dependable.",
+      "Good work is often quiet but important.",
+      "Careful preparation supports confident service.",
+      "When records are clear, teamwork is easier.",
+      "A minute of checking can save an hour later.",
+      "Keep stock visible, accurate, and ready.",
+      "Details matter more when people depend on us.",
+      "Good systems help good people do great work.",
+      "Orderly shelves support orderly thinking.",
+      "A professional routine can still be simple.",
+      "The best pharmacy work is careful and consistent.",
+      "Stay patient with the process.",
+      "Good preparation is a form of respect.",
+      "Make every entry count.",
+      "Accuracy builds confidence.",
+      "Clear records help prevent confusion.",
+      "A well-run pharmacy starts with reliable basics.",
+      "Keep improving one small step at a time.",
+      "Care in, care out.",
+      "Good teamwork begins with clear information.",
+      "The right record helps the right action.",
+      "Quiet consistency creates strong results.",
+      "Check the details, then carry on.",
+      "A prepared shelf is ready to serve.",
+      "Make accuracy part of the routine.",
+      "Good work supports good care.",
+      "Every careful action matters.",
+      "Simple tools can support important work.",
+      "A clear record is a useful record.",
+      "Keep the process friendly and focused.",
+      "Good pharmacy practice grows from good habits.",
+      "Today’s careful work helps tomorrow’s team.",
+      "Thank you for keeping the pharmacy ready.",
+      "Together, we keep care moving."
+    ];
+
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById("dailyQuote").textContent = `"${quote}"`;
+  </script>
 </body>
 </html>
